@@ -4,7 +4,7 @@ SRCS	=	$(wildcard *.c)
 OBJS	=	$(SRCS:.c=.o)
 
 CC	=	gcc
-CFLAGS	+=	-W -Wall -Werror
+CFLAGS	+=	-W -g3 -Wall -Werror
 
 ESGI_D	= 	libesgi 
 LDFLAGS +=	-L$(ESGI_D) -lesgi
