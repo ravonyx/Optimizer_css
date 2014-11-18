@@ -235,8 +235,8 @@ void merge_on_attribute(t_maillon* maillon)
 						//printf("nom %s
 						add_last_maillon(maillon,new);
 					}
-					else
-					printf("Done\n");
+					//else
+					//printf("Done\n");
 					//printf("\n---------%d----------\n",j);
 				}
 				maillon = maillon->next;
