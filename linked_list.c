@@ -20,6 +20,18 @@ t_maillon* new_maillon(char* name, int nb_keys, char** keys)
 
 	return new_m;
 }
+void add_last_maillon(t_maillon* maillon,t_maillon* new)
+{
+	t_maillon* used = maillon;
+	while(used->next!=NULL)
+	{
+		used = used->next;
+	}
+	//printf(" last maillon = %s\n",maillon->name);
+	printf(" new maillon = %s \n %s\n" ,new->name,new->keys[0]);
+	used->next = new;
+	//linked_list_display(maillon);
+}
 
 unsigned int linked_list_size(t_maillon* maillon)
 {
@@ -62,6 +74,7 @@ int linked_list_get_by_name(t_maillon* maillon, char *name)
 
         count++;
         maillon = maillon->next;
+        
     }
 
     return 0;
