@@ -16,5 +16,4 @@ void linked_list_display(t_maillon* maillon);
 int linked_list_get_by_name(t_maillon* maillon, char *name);
 char* linked_list_get_by_position(t_maillon* maillon, unsigned int index, int* find);
 void linked_list_free(t_maillon** maillon);
-void add_last_maillon(t_maillon* maillon,t_maillon* new);
 #endif //LINKED_LIST_H

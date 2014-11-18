@@ -10,7 +10,7 @@ typedef char t_bool;
 
 t_maillon* parser(char* filename, t_maillon *list, t_maillon **start_list);
 void merge_on_name(t_maillon* maillon); 
-void merge_on_attribute(t_maillon* maillon);
+t_maillon* merge_on_attribute(t_maillon* maillon);
 
 int main(int argc, char** argv)
 {
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
 	printf("-----------------------Initial Display---------------------------------\n");
 	linked_list_display(start_list);
 	printf("-----------------------Merge On Attribute------------------------------\n");
-	merge_on_attribute(start_list);
+	start_list = merge_on_attribute(start_list);
 	printf("-----------------------Merge On Name-----------------------------------\n");
 	merge_on_name(start_list);
 	printf("-----------------------Final Display-----------------------------------\n");
@@ -193,18 +193,15 @@ void merge_on_name(t_maillon* maillon)
 	
 }
 
-void merge_on_attribute(t_maillon* maillon)
+t_maillon* merge_on_attribute(t_maillon* maillon)
 {
 	t_maillon* in_use = NULL;
 	t_maillon* new = NULL;
+	t_maillon* start = maillon;
 	char ** keys = NULL;
 	char* name = NULL;
 	int i = 0;
 	int j = 0;
-	
-	//int conflict = 0;
-	//int nb_conflict = 0;
-	//int choice = 0;
 	do 
 	{
 		printf(" \n ----Treatment of %s----\n",maillon->name);
@@ -224,20 +221,15 @@ void merge_on_attribute(t_maillon* maillon)
 					
 					if(my_strcmp(in_use->keys[i],maillon->keys[j]) == 0)
 					{
-						//printf("	NEW RULE \n		%s,%s\n %s \n\n",maillon->name,in_use->name,maillon->keys[j]);
+						
 						keys = malloc(sizeof(char*)*1);
-						keys[0] = maillon->keys[j];
+						keys[0] = in_use->keys[i];					
 						name = merge_name(maillon->name,in_use->name);
-						// PROBLEME !!
-						new = new_maillon(name,0,keys);
-						//printf("\n name Act = %s\n ",maillon->name);
-						//printf("\n name = %s\n Value = %s\n",new->name,new->keys[0]);
-						//printf("nom %s
-						add_last_maillon(maillon,new);
+						new = new_maillon(name,1,keys);
+						new->next = start;
+						start = new;
+						
 					}
-					//else
-					//printf("Done\n");
-					//printf("\n---------%d----------\n",j);
 				}
 				maillon = maillon->next;
 
@@ -250,4 +242,5 @@ void merge_on_attribute(t_maillon* maillon)
 		maillon = maillon->next;		
 	}
 	while(maillon!=NULL);
+	return start;
 }
