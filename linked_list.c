@@ -40,14 +40,14 @@ void linked_list_display(t_maillon* maillon)
 	int i = 0;
 	while(maillon != NULL)
 	{
-		printf("Name of tag:%s\n", maillon->name);
-		printf("number of keys: %d\n", maillon->nb_keys);
+		printf("%s{\n", maillon->name);
+		//printf("number of keys: %d\n", maillon->nb_keys);
 
 		for(i = 0; i < maillon->nb_keys; i++)
-			printf("Key: %s\n", maillon->keys[i]);
+			printf("%s;\n", maillon->keys[i]);
 		maillon = maillon->next;
 	}
-	printf("\n");
+	printf("}\n");
 }
 
 //TO CHANGE
