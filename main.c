@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 	int		i = 1;
 	int		nb_files = argc - 1;
 	
-	if(argv[i] == "-h")
+	if(my_strcmp(argv[i], "-h") == 0)
 	{
 		printf("Help");		
 		nb_files --;
