@@ -24,3 +24,8 @@ distclean:	clean
 	rm -f $(NAME)
 
 rebuild:	distclean all
+
+install: 
+	cp optimizer /usr/share/man/man1/optimizer.1
+	gzip /usr/share/man/man1/optimizer.1
+

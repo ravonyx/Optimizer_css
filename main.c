@@ -19,6 +19,12 @@ int main(int argc, char** argv)
 	//FILE* 	f_out;
 	int		i = 1;
 	int		nb_files = argc - 1;
+	
+	if(argv[i] == "-h")
+	{
+		printf("Help");		
+		nb_files --;
+	}
 
 	printf("Number of files: %d\n", nb_files);
 	while(i <= nb_files)
@@ -33,6 +39,7 @@ int main(int argc, char** argv)
 		exit(1);
 	}*/
 	
+<<<<<<< HEAD
 	//free(f_out);
 	
 	printf("-----------------------Initial Display---------------------------------\n");
@@ -42,6 +49,8 @@ int main(int argc, char** argv)
 	printf("-----------------------Merge On Name-----------------------------------\n");
 	merge_on_name(start_list);
 	printf("-----------------------Final Display-----------------------------------\n");
+=======
+>>>>>>> man et make install (pas fini)
 	linked_list_display(start_list);
 	linked_list_free(&start_list);
 	return 0;
