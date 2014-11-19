@@ -1,4 +1,6 @@
 NAME	=	optimizer_css
+MANPATH = 	/usr/share/man/man1
+BINPATH = 	/usr/bin/
 
 SRCS	=	$(wildcard *.c)
 OBJS	=	$(SRCS:.c=.o)
@@ -26,6 +28,7 @@ distclean:	clean
 rebuild:	distclean all
 
 install: 
-	cp optimizer /usr/share/man/man1/optimizer.1
-	gzip /usr/share/man/man1/optimizer.1
+	cp Man/$(NAME) $(MANPATH)/optimizer_css.1
+	gzip $(MANPATH)/optimizer_css.1
+	cp $(NAME) $(BINPATH)
 

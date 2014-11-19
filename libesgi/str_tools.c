@@ -33,6 +33,7 @@ char* merge_name(char* first,char* second)
 	}
 	return name;
 }
+
 char* get_string_todelim(char* str, char delim)
 {
 	int	i = 0;
@@ -51,6 +52,7 @@ char* get_string_todelim(char* str, char delim)
 	result[j] = '\0';
 	return result;
 }
+
 void my_memcpy(char* dst, char* src, int len)
 {
 	int	i = 0;
@@ -79,7 +81,7 @@ char* delete_space(char* str)
 
 	while(str[i] != '\0')
 	{
-		if(str[i] != 32 && str[i] != 9 && str[i] != '{' && str[i] != '}')
+		if(str[i] != '\n' && str[i] != '\t' && str[i] != ' ' && str[i] != '{' && str[i] != '}')
 		{
 			str[j] = str[i];
 			j++;
@@ -95,29 +97,30 @@ char* delete_space(char* str)
 	return result;
 }
 
-int my_strcmp(char* arg1, char* arg2){
-  int i = 0;
-  int j = 0;
-  int k = 0;
-  while(arg2[j] != 0)
-    j++;
-  while(arg1[k] != 0)
-    k++;
+int my_strcmp(char* arg1, char* arg2)
+{
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	while(arg2[j] != 0)
+		j++;
+	while(arg1[k] != 0)
+		k++;
 
-  while(arg1[i] !=0)
-    {
-      if(arg1[i] != arg2[i])
+	while(arg1[i] !=0)
 	{
-	  if(arg1[i]>arg2[i])
-	    return 1;
-	  else
-	    return -1;
+		if(arg1[i] != arg2[i])
+		{
+			if(arg1[i]>arg2[i])
+				return 1;
+			else
+				return -1;
+		}
+		i++;
 	}
-      i++;
-    }
-  if(k > j)
-    return 1;
-  if(j > k)
-    return -1;
-  return 0;
+	if(k > j)
+		return 1;
+	if(j > k)
+		return -1;
+	return 0;
 }

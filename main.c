@@ -18,18 +18,38 @@ int main(int argc, char** argv)
 	t_maillon*	start_list = NULL;
 	//FILE* 	f_out;
 	int		i = 1;
-	int		nb_files = argc - 1;
+	int		nb_files = argc - 1; //To change argc - 2 (f_out & name of the program)
+	int 		i_file;
+	
+	if(argc == 1)
+	{
+		printf("Unknown Option, usage: optimizer_css [-h] [-b] css_in ... css_out\n");	
+		return -1;	
+	}
 	
 	if(my_strcmp(argv[i], "-h") == 0)
 	{
-		printf("Help");		
+		printf("usage: optimizer_css [-h] [-b] css_in ... css_out\n");		
+		return 0;
+	}
+	
+	else if(my_strcmp(argv[i], "-b") == 0)
+	{
+		t_bool display_beautiful = FALSE;
+		(void) display_beautiful;
 		nb_files --;
+		i++;
 	}
 
+	if(nb_files <= 0) //message d'erreur !!
+		return -1;
+
 	printf("Number of files: %d\n", nb_files);
-	while(i <= nb_files)
+	for(i_file = 0; i_file < nb_files; i_file++)
 	{
 		list_tag = parser(argv[i], list_tag, &start_list);
+		if(list_tag == NULL)
+			return -1;
 		i++;
 	}
 
@@ -39,7 +59,7 @@ int main(int argc, char** argv)
 		exit(1);
 	}*/
 	
-<<<<<<< HEAD
+
 	//free(f_out);
 	
 	printf("-----------------------Initial Display---------------------------------\n");
@@ -49,8 +69,7 @@ int main(int argc, char** argv)
 	printf("-----------------------Merge On Name-----------------------------------\n");
 	merge_on_name(start_list);
 	printf("-----------------------Final Display-----------------------------------\n");
-=======
->>>>>>> man et make install (pas fini)
+
 	linked_list_display(start_list);
 	linked_list_free(&start_list);
 	return 0;
@@ -76,13 +95,20 @@ t_maillon* parser(char* filename, t_maillon *list, t_maillon** start_list)
 	if (NULL == fp) 
 	{
 		fprintf(stderr,"Fail to open file in reading\n");
-		exit(1);
+		return NULL;
 	}
 	
 	while(read != -1)
 	{
 		
 		read = getdelim(&title, &len, '{', fp);
+		if(read == -1)
+		{
+			free(title);
+			free(str_keys);
+			printf("Read error\n");
+			continue;
+		}
 		read = getdelim(&str_keys, &len, '}', fp);
 		if(read != -1)
 		{
@@ -90,14 +116,22 @@ t_maillon* parser(char* filename, t_maillon *list, t_maillon** start_list)
 			str_keys = delete_space(str_keys);
 			nb_keys = get_nb_keys(str_keys); //retourne le nombre de clés
 			keys = malloc(nb_keys * sizeof(char*));
+			if(keys == NULL)
+				return NULL;
 
 			for(i = 0; i < nb_keys; i++)
 			{
 				keys[i] = parser_keys(str_keys); // parser avec ; retourner char* chaine de une key
+				if(keys[i] == NULL)
+					return NULL;
 				str_keys = remove_key_before(str_keys);
+				if(str_keys == NULL)
+					return NULL;
 			}
 
 			new_node = new_maillon(title, nb_keys, keys);
+			if(new_node == NULL)
+				return NULL;
 			if(list != NULL)
 				list->next = new_node;
 			list = new_node;
