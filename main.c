@@ -48,7 +48,6 @@ int main(int argc, char** argv)
 		i++;
 	}
 
-	printf("Parser done");
 	if (NULL == (f_out = fopen(argv[argc-1],"w"))) 
 	{
 		fprintf(stderr,"Fail to open file %s in writing\n",argv[argc-1]);
