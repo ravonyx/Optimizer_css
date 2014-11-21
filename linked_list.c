@@ -34,23 +34,82 @@ unsigned int linked_list_size(t_maillon* maillon)
     return length;
 }
 
-//TO CHANGE
-void linked_list_display(t_maillon* maillon)
+void linked_list_display(t_maillon* maillon,t_bool display_beautiful,FILE* f_out) /* Print in f_out with, or without beautifully option */
 {
 	int i = 0;
 	while(maillon != NULL)
 	{
-		printf("%s{\n", maillon->name);
-		//printf("number of keys: %d\n", maillon->nb_keys);
-
+		if(display_beautiful)
+			fprintf(f_out,"%s{\n",maillon->name);
+		else
+			fprintf(f_out,"%s{",maillon->name);
 		for(i = 0; i < maillon->nb_keys; i++)
-			printf("%s;\n", maillon->keys[i]);
+			if(display_beautiful)
+				fprintf(f_out,"%s;\n", maillon->keys[i]);
+			else
+				fprintf(f_out,"%s;", maillon->keys[i]);
 		maillon = maillon->next;
+		if(display_beautiful)
+			fprintf(f_out,"}\n");
+		else
+			fprintf(f_out,"}");
 	}
-	printf("}\n");
+	fclose(f_out);
 }
 
-//TO CHANGE
+t_maillon* add_maillon(t_maillon* maillon,t_maillon* new)
+{
+	t_maillon* save = maillon;
+	if(new != NULL)
+		while(maillon->next != NULL)
+		{
+			maillon = maillon->next;
+		}
+		maillon->next = new;
+		
+		return save;
+}
+
+
+t_maillon* delete_rule(t_maillon* maillon,int index)
+{
+	int i = 0;		
+		char** new_keys = malloc(sizeof(char*)*(maillon->nb_keys-1));
+		for(i =0;i < index;i++)/* Copy maillon->keys before index in new_keys*/
+			{
+				new_keys[i] = maillon->keys[i];
+			}
+		for(i = index+1;i < maillon->nb_keys;i++)/*restart copy after index value*/
+			new_keys[i-1] = maillon->keys[i];
+		free(maillon->keys);
+		maillon->keys = new_keys;
+		maillon->nb_keys = maillon->nb_keys - 1;
+	return maillon;
+}
+
+void remove_empty(t_maillon* maillon)
+{
+	t_maillon* tmp = NULL;
+	while(maillon->next != NULL) /*explore all list*/
+	{
+		if(maillon->next->nb_keys == 0) /* remove empty nodes */
+		{
+			tmp = maillon->next;
+			maillon->next = maillon->next->next;
+			
+			free(tmp->keys);/* Free maillon->keys */
+			free(tmp);		/* Free maillon */
+		}
+		else
+			maillon = maillon->next;
+	}
+	if(maillon->nb_keys == 0)
+		{
+			maillon = NULL;
+		}
+}
+
+
 int linked_list_get_by_name(t_maillon* maillon, char *name)
 {
     int count = 0;

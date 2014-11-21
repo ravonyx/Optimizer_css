@@ -14,7 +14,7 @@ int get_length_todelim(char* str, char delim)
 	return i;
 }
 
-char* merge_name(char* first,char* second)
+char* merge_name(char* first,char* second)/* merge first and second string adding ',' as [first,second] */
 {
 	int k = 0;
 	char* name = (char*)malloc(sizeof(char)*(length(first)+length(second)+2));
