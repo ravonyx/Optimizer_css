@@ -1,0 +1,18 @@
+.\" Manpage for optimizer_css.
+.TH man 1 "18 Nov 2014" "1.0" "optimizer_css man page"
+.SH NAME
+optimizer_css \- optimize your css code.
+.SH SYNOPSIS
+optimizer_css [-h] [-b] css_in ... css_out
+.SH DESCRIPTION
+optimizer_css is a command that merge your tags in your css files and merge them if they are more than two.
+.SH OPTIONS
+.IP -h 
+display help.
+.IP -b 
+display your css beautifully in the output file.
+.SH AUTHOR
+.IP
+Manon Maillard
+.IP 
+Valentin Hayot
