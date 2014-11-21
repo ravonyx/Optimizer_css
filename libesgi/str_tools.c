@@ -81,7 +81,7 @@ char* delete_space(char* str)
 
 	while(str[i] != '\0')
 	{
-		if(str[i] != '\n' && str[i] != '\t' && str[i] != ' ' && str[i] != '{' && str[i] != '}')
+		if(str[i] != '\n' && str[i] != '\t' && str[i] != ' ' && str[i] != '{')
 		{
 			str[j] = str[i];
 			j++;

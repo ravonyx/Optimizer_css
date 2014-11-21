@@ -7,36 +7,57 @@ int get_nb_keys(char* input)
 {
 	int	nb_keys = 0;
 	int	i = 0;
-
 	for(i = 0; input[i] != '\0'; i++)
 	{
 		if(input[i] == ';')
+			nb_keys++;
+		else if(input[i] == '}' && input[i-1] != ';')
 			nb_keys++;
 	}
 	return nb_keys;
 }
 
-char* parser_keys(char* str_keys)
+char* parser_keys(char* str_keys, char delim)
 {
 	char*	key = NULL;
-	int	len = get_length_todelim(str_keys, ';');
+	int	len = get_length_todelim(str_keys, delim);
+	int 	len_to_malloc;
 
-	key = malloc(len + 1);
+	if(delim == '}' && str_keys[len - 1] == ';')
+	{
+		key = malloc(len);
+		len_to_malloc = len - 1;
+	}
+	else
+	{
+		key = malloc(len + 1);
+		len_to_malloc = len;
+	}
+	
+	my_memcpy(key, str_keys, len_to_malloc);
 	if(key == NULL)
 		return NULL;
-	my_memcpy(key, str_keys, len);
-	key[len] = '\0';
+	key[len_to_malloc] = '\0';
 	return key;
 }
 
 
 
-char* remove_key_before(char* str_keys)
+char* remove_key_before(char* str_keys, int end_key)
 {
 	char*	new_input = NULL;
-	int	len = get_length_todelim(str_keys, ';');
-	char*	key_after_delim = str_keys + (len + 1);
-	int	len_to_end = length(key_after_delim);
+	int	len;
+	char*	key_after_delim;
+	int	len_to_end;
+
+	if(end_key == 1)
+		len = get_length_todelim(str_keys, '}');
+	else
+		len = get_length_todelim(str_keys, ';');
+	
+
+	key_after_delim = str_keys + (len + 1);
+	len_to_end = length(key_after_delim);
 
 	new_input = malloc(len_to_end + 1);
 	if(new_input ==  NULL)
